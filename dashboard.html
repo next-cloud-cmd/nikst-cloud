@@ -302,6 +302,15 @@
                 alert('🚀 Next Cloud AI Engine Activated!\n\nAI Project Management Console Opening...');
             });
         });
+
+        // محاكاة بيانات حية
+        setInterval(() => {
+            const stats = document.querySelectorAll('.stat-number');
+            if (stats[0]) {
+                const current = parseInt(stats[0].textContent);
+                stats[0].textContent = current + (Math.random() > 0.5 ? 1 : 0);
+            }
+        }, 5000);
     </script>
 </body>
 </html>
