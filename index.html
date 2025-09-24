@@ -232,7 +232,7 @@
             
             <div class="login-section">
                 <h2>Access Your AI Workspace</h2>
-                <form id="loginForm" onsubmit="handleLogin(event)">
+                <form id="loginForm">
                     <div class="input-group">
                         <input type="email" placeholder="developer@company.com" required>
                     </div>
@@ -267,7 +267,7 @@
     </div>
 
     <script>
-        function handleLogin(event) {
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             
             const email = document.querySelector('input[type="email"]').value;
@@ -282,59 +282,27 @@
             
             // Simulate AI authentication
             setTimeout(() => {
-                if (email.includes('@') && password.length >= 6) {
-                    messageDiv.innerHTML = '✅ <strong>AI Authentication Successful!</strong><br>Welcome to Next Cloud AI';
+                if (email.includes('@') && password.length >= 3) {
+                    messageDiv.innerHTML = '✅ <strong>AI Authentication Successful!</strong><br>Redirecting to Dashboard...';
                     messageDiv.style.background = 'rgba(0, 245, 212, 0.2)';
                     messageDiv.style.color = '#00f5d4';
                     
-                    // Simulate redirect to AI dashboard
+                    // Redirect to dashboard after 2 seconds
                     setTimeout(() => {
-                        alert('🚀 Welcome to Next Cloud AI Dashboard!\n\nAI Features Ready:\n• Smart Deployments\n• Predictive Scaling\n• Code Optimization\n• Security Analysis');
-                    }, 1000);
+                        window.location.href = 'dashboard.html';
+                    }, 2000);
                 } else {
                     messageDiv.textContent = '❌ AI system requires valid credentials';
                     messageDiv.style.background = 'rgba(255, 107, 107, 0.2)';
                     messageDiv.style.color = '#ff6b6b';
                 }
             }, 2000);
-        }
+        });
 
         // Initialize AI system
         console.log('🚀 Next Cloud AI Platform Initialized');
         console.log('🤖 AI Features: Active');
         console.log('🌍 Global Network: Online');
     </script>
-    function handleLogin(event) {
-    event.preventDefault();
-    
-    const email = document.querySelector('input[type="email"]').value;
-    const password = document.querySelector('input[type="password"]').value;
-    const messageDiv = document.getElementById('message');
-    
-    messageDiv.textContent = '🔐 Authenticating with AI system...';
-    messageDiv.style.display = 'block';
-    messageDiv.style.background = 'rgba(0, 180, 216, 0.2)';
-    messageDiv.style.color = '#00b4d8';
-    
-    setTimeout(() => {
-        if (email.includes('@') && password.length >= 3) {
-            messageDiv.innerHTML = '✅ <strong>AI Authentication Successful!</strong>';
-            messageDiv.style.background = 'rgba(0, 245, 212, 0.2)';
-            messageDiv.style.color = '#00f5d4';
-            
-            // الانتقال للوحة التحكم بعد ثانيتين
-            setTimeout(() => {
-                window.location.href = 'dashboard.html';
-            }, 2000);
-        } else {
-            messageDiv.textContent = '❌ AI system requires valid credentials';
-            messageDiv.style.background = 'rgba(255, 107, 107, 0.2)';
-            messageDiv.style.color = '#ff6b6b';
-        }
-    }, 1500);
-}
-     </script>
-</body>
-</html>
 </body>
 </html>
