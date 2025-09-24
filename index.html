@@ -3,21 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Next Cloud AI - Intelligent Cloud Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Next Cloud AI - Launch Platform</title>
     <style>
         :root {
-            --primary: #0066ff;
-            --primary-dark: #0052cc;
-            --secondary: #00d4ff;
-            --accent: #ff6b6b;
-            --dark: #0a0a1a;
-            --darker: #050510;
-            --light: #ffffff;
-            --gray: #8a8aa3;
-            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
-            --glass: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.12);
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #06d6a0;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
         }
 
         * {
@@ -27,562 +21,383 @@
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--darker);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--dark);
             color: var(--light);
-            overflow-x: hidden;
-            line-height: 1.6;
+            min-height: 100vh;
         }
 
-        /* الخلفية المتحركة */
-        .background-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(0, 102, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(255, 107, 107, 0.05) 0%, transparent 50%);
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
         }
 
-        .floating-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            background: var(--gradient);
-            opacity: 0.1;
-            filter: blur(40px);
-            animation: float 8s ease-in-out infinite;
-        }
-
-        .shape-1 { width: 300px; height: 300px; top: 10%; left: 5%; animation-delay: 0s; }
-        .shape-2 { width: 200px; height: 200px; top: 60%; right: 10%; animation-delay: 2s; }
-        .shape-3 { width: 150px; height: 150px; bottom: 20%; left: 20%; animation-delay: 4s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(180deg); }
-        }
-
-        /* التنقل */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 2rem;
-            background: rgba(10, 10, 26, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
+        /* Header */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 0;
+            margin-bottom: 3rem;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--light);
         }
 
-        .logo-icon {
-            font-size: 2rem;
-            animation: pulse 2s infinite;
+        .logo span {
+            color: var(--secondary);
         }
 
         .nav-links {
             display: flex;
             gap: 2rem;
-            align-items: center;
         }
 
         .nav-links a {
             color: var(--gray);
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
+            transition: color 0.3s;
         }
 
         .nav-links a:hover {
             color: var(--light);
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient);
-            transition: width 0.3s ease;
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
         }
 
-        .nav-links a:hover::after {
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Login Form */
+        .login-form {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 400px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .form-group input {
             width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.8);
+            color: var(--light);
+            font-size: 1rem;
         }
 
-        .nav-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
         }
 
         .btn {
-            padding: 0.75rem 1.5rem;
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
             border: none;
-            border-radius: 50px;
+            border-radius: 8px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
+            transition: background 0.3s;
         }
 
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
+        .btn:hover {
+            background: var(--primary-dark);
         }
 
-        .btn-outline:hover {
-            background: var(--primary);
-            color: var(--light);
-            transform: translateY(-2px);
-        }
-
-        .btn-primary {
-            background: var(--gradient);
-            color: var(--light);
-            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(0, 102, 255, 0.4);
-        }
-
-        /* القسم الرئيسي */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
             text-align: center;
-            padding: 0 2rem;
-            position: relative;
+            display: none;
         }
 
-        .hero-content {
-            max-width: 800px;
-            z-index: 1;
+        .success {
+            background: rgba(6, 214, 160, 0.2);
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
         }
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
-            animation: slideInUp 1s ease;
+        .error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
         }
 
-        .hero-title {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--light) 30%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: slideInUp 1s ease 0.2s both;
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            color: var(--gray);
-            margin-bottom: 3rem;
-            animation: slideInUp 1s ease 0.4s both;
-        }
-
-        /* بطاقة التسجيل */
-        .login-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 3rem;
-            max-width: 450px;
-            margin: 0 auto 4rem;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-            animation: slideInUp 1s ease 0.6s both;
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .login-header h2 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .login-header p {
-            color: var(--gray);
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 1.5rem;
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-            z-index: 2;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            color: var(--light);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
-        }
-
-        .login-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-        }
-
-        .forgot-password {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        /* الميزات */
+        /* Features */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-top: 4rem;
         }
 
         .feature-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
+            background: rgba(30, 41, 59, 0.5);
             padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            animation: bounce 2s infinite;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
 
         .feature-card h3 {
-            font-size: 1.3rem;
             margin-bottom: 1rem;
+            color: var(--light);
         }
 
         .feature-card p {
             color: var(--gray);
-            line-height: 1.5;
-        }
-
-        /* Animations */
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .navbar {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-            
-            .nav-links {
-                gap: 1rem;
-            }
-            
-            .login-card {
-                padding: 2rem;
-                margin: 0 1rem 3rem;
-            }
+            line-height: 1.6;
         }
     </style>
 </head>
 <body>
-    <!-- الخلفية المتحركة -->
-    <div class="background-animation"></div>
-    <div class="floating-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-    </div>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">Next Cloud <span>AI</span></div>
+            <nav class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#docs">Docs</a>
+            </nav>
+        </header>
 
-    <!-- شريط التنقل -->
-    <nav class="navbar">
-        <div class="logo">
-            <i class="fas fa-cloud logo-icon"></i>
-            Next Cloud AI
-        </div>
-        
-        <div class="nav-links">
-            <a href="#features">Features</a>
-            <a href="#solutions">Solutions</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#docs">Documentation</a>
-            <a href="#enterprise">Enterprise</a>
-        </div>
-        
-        <div class="nav-actions">
-            <a href="#" class="btn btn-outline">Sign Up</a>
-            <a href="#" class="btn btn-primary">Contact Sales</a>
-        </div>
-    </nav>
-
-    <!-- المحتوى الرئيسي -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-rocket"></i>
-                <span>WORLD'S FIRST AI-POWERED CLOUD PLATFORM</span>
-            </div>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Deploy AI Models in Seconds</h1>
+            <p>The simplest way to deploy and scale your artificial intelligence applications</p>
             
-            <h1 class="hero-title">
-                Intelligent Cloud
-                <br>
-                <span style="background: linear-gradient(135deg, var(--secondary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                    Powered by AI
-                </span>
-            </h1>
-            
-            <p class="hero-subtitle">
-                Deploy, scale, and optimize your applications with artificial intelligence. 
-                Experience the future of cloud computing today.
-            </p>
-
-            <!-- بطاقة التسجيل -->
-            <div class="login-card">
-                <div class="login-header">
-                    <h2>Access AI Dashboard</h2>
-                    <p>Sign in to your intelligent workspace</p>
-                </div>
-                
+            <!-- Login Form -->
+            <div class="login-form">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: var(--light);">Sign In</h2>
                 <form id="loginForm">
-                    <div class="input-group">
-                        <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" placeholder="Enter your email" required>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="your@email.com" required>
                     </div>
-                    
-                    <div class="input-group">
-                        <i class="fas fa-lock input-icon"></i>
-                        <input type="password" placeholder="Enter your password" required>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password" required>
                     </div>
-                    
-                    <div class="login-options">
-                        <label class="remember-me">
-                            <input type="checkbox">
-                            Remember me
-                        </label>
-                        <a href="#" class="forgot-password">Forgot password?</a>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Sign In to Dashboard
-                    </button>
+                    <button type="submit" class="btn">Sign In to Dashboard</button>
                 </form>
+                <div id="message" class="message"></div>
             </div>
 
-            <!-- الميزات -->
+            <!-- Features -->
             <div class="features">
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>AI Optimization</h3>
-                    <p>Automatic performance tuning and resource allocation powered by machine learning</p>
+                    <div class="feature-icon">🚀</div>
+                    <h3>Instant Deployment</h3>
+                    <p>Deploy your AI models with a single click. No configuration needed.</p>
                 </div>
-                
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Lightning Fast</h3>
-                    <p>Global edge network with sub-second deployment times across 200+ locations</p>
+                    <div class="feature-icon">📊</div>
+                    <h3>Real-time Analytics</h3>
+                    <p>Monitor your models with live metrics and performance dashboards.</p>
                 </div>
-                
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Enterprise Security</h3>
-                    <p>Military-grade encryption and AI-powered threat detection</p>
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure & Scalable</h3>
+                    <p>Enterprise-grade security with auto-scaling capabilities.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <script>
-        // تأثيرات الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            // تأثيرات الظهور
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
+        // User Management System
+        class UserManager {
+            constructor() {
+                this.users = this.loadUsers();
+                this.currentUser = null;
+            }
 
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+            loadUsers() {
+                const saved = localStorage.getItem('nextcloudai_users');
+                return saved ? JSON.parse(saved) : [
+                    {
+                        id: 1,
+                        email: 'admin@nextcloudai.com',
+                        password: 'admin123',
+                        name: 'Admin User',
+                        plan: 'pro'
                     }
-                });
-            }, observerOptions);
+                ];
+            }
 
-            // تطبيق تأثيرات الظهور على العناصر
-            document.querySelectorAll('.feature-card').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'all 0.6s ease';
-                observer.observe(card);
-            });
+            saveUsers() {
+                localStorage.setItem('nextcloudai_users', JSON.stringify(this.users));
+            }
 
-            // تسجيل الدخول
-            document.getElementById('loginForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-                
-                const button = this.querySelector('button');
-                const originalText = button.innerHTML;
-                
-                // تأثير التحميل
-                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
-                button.disabled = true;
-                
-                // محاكاة المصادقة
-                setTimeout(() => {
-                    button.innerHTML = '<i class="fas fa-check"></i> Access Granted!';
-                    button.style.background = 'linear-gradient(135deg, #00d4ff, #00b894)';
-                    
-                    // الانتقال للوحة التحكم
+            login(email, password) {
+                const user = this.users.find(u => u.email === email && u.password === password);
+                if (user) {
+                    this.currentUser = user;
+                    localStorage.setItem('current_user', JSON.stringify(user));
+                    return { success: true, user };
+                }
+                return { success: false, message: 'Invalid credentials' };
+            }
+
+            register(email, password, name) {
+                if (this.users.find(u => u.email === email)) {
+                    return { success: false, message: 'Email already exists' };
+                }
+
+                const newUser = {
+                    id: Date.now(),
+                    email,
+                    password,
+                    name,
+                    plan: 'starter'
+                };
+
+                this.users.push(newUser);
+                this.saveUsers();
+                return { success: true, user: newUser };
+            }
+        }
+
+        // Project Management System
+        class ProjectManager {
+            constructor() {
+                this.projects = this.loadProjects();
+            }
+
+            loadProjects() {
+                const saved = localStorage.getItem('nextcloudai_projects');
+                return saved ? JSON.parse(saved) : [];
+            }
+
+            saveProjects() {
+                localStorage.setItem('nextcloudai_projects', JSON.stringify(this.projects));
+            }
+
+            createProject(name, type = 'ai-model') {
+                const project = {
+                    id: Date.now(),
+                    name,
+                    type,
+                    status: 'created',
+                    created: new Date().toISOString(),
+                    url: null,
+                    metrics: {
+                        accuracy: 0,
+                        latency: 0,
+                        requests: 0
+                    }
+                };
+
+                this.projects.push(project);
+                this.saveProjects();
+                return project;
+            }
+
+            deployProject(projectId) {
+                const project = this.projects.find(p => p.id === projectId);
+                if (project) {
+                    project.status = 'deploying';
+                    this.saveProjects();
+
+                    // Simulate deployment
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html';
-                    }, 1000);
-                }, 2000);
-            });
+                        project.status = 'live';
+                        project.url = `https://${project.name.toLowerCase().replace(/\s+/g, '-')}.nextcloudai.com`;
+                        project.metrics = {
+                            accuracy: Math.random() * 20 + 80, // 80-100%
+                            latency: Math.random() * 200 + 100, // 100-300ms
+                            requests: Math.floor(Math.random() * 1000)
+                        };
+                        this.saveProjects();
+                    }, 3000);
 
-            // تأثيرات إضافية
-            const shapes = document.querySelectorAll('.shape');
-            shapes.forEach((shape, index) => {
-                shape.style.animationDelay = `${index * 2}s`;
-            });
+                    return project;
+                }
+            }
 
-            console.log('🚀 Next Cloud AI - Intelligent Platform Loaded');
+            getProjects() {
+                return this.projects;
+            }
+        }
+
+        // Initialize Managers
+        const userManager = new UserManager();
+        const projectManager = new ProjectManager();
+
+        // Login System
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+
+            const result = userManager.login(email, password);
+            
+            if (result.success) {
+                messageDiv.textContent = '✅ Login successful! Redirecting...';
+                messageDiv.className = 'message success';
+                messageDiv.style.display = 'block';
+
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+            } else {
+                messageDiv.textContent = '❌ ' + result.message;
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
+            }
         });
 
-        // تأثيرات الماوس
-        document.addEventListener('mousemove', function(e) {
-            const shapes = document.querySelectorAll('.shape');
-            shapes.forEach(shape => {
-                const speed = shape.getAttribute('data-speed') || 5;
-                const x = (window.innerWidth - e.pageX * speed) / 100;
-                const y = (window.innerHeight - e.pageY * speed) / 100;
-                shape.style.transform = `translateX(${x}px) translateY(${y}px)`;
-            });
-        });
+        console.log('🚀 Next Cloud AI MVP Loaded');
+        console.log('👤 User System: Active');
+        console.log('📦 Project System: Ready');
     </script>
 </body>
 </html>
