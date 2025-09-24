@@ -1,150 +1,308 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nikst Cloud - Next Generation Developer Platform</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Next Cloud AI - Next Generation Developer Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .ai-badge {
+            background: linear-gradient(45deg, #00b4d8, #00f5d4);
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 1;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .hero h1 {
+            font-size: 60px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+        
+        .ai-gradient {
+            background: linear-gradient(45deg, #00b4d8, #00f5d4, #9d4edd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 24px;
+            margin-bottom: 50px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .login-section {
+            background: rgba(255, 255, 255, 0.12);
+            padding: 50px;
+            border-radius: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .login-section h2 {
+            margin-bottom: 35px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #00b4d8;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #00b4d8, #0077b6);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 70px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- الخلفية المتحركة -->
-    <div class="background-animation">
-        <div class="floating-shape shape-1"></div>
-        <div class="floating-shape shape-2"></div>
-        <div class="floating-shape shape-3"></div>
-    </div>
-
     <div class="container">
-        <!-- الشريط العلوي -->
         <nav class="navbar">
-            <div class="nav-brand">
-                <div class="logo">
-                    <i class="fas fa-cloud"></i>
-                    <span>Nikst Cloud</span>
-                </div>
+            <div class="logo">
+                Next Cloud <span class="ai-badge">AI</span>
             </div>
             <div class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#docs">Documentation</a>
-                <a href="#" class="btn-outline">Sign Up</a>
+                <a href="#community">Community</a>
             </div>
         </nav>
 
-        <!-- القسم الرئيسي -->
-        <main class="hero-section">
-            <div class="hero-content">
-                <div class="badge">
-                    <i class="fas fa-rocket"></i>
-                    <span>BETA NOW AVAILABLE</span>
-                </div>
-                
-                <h1 class="hero-title">
-                    Build, Deploy, 
-                    <span class="gradient-text">Scale</span>
-                    <br>Like Never Before
-                </h1>
-                
-                <p class="hero-description">
-                    The complete cloud platform for modern developers. 
-                    Deploy your apps in seconds with built-in CI/CD, 
-                    global CDN, and enterprise-grade security.
-                </p>
+        <main class="hero">
+            <h1>Build, Deploy, <span class="ai-gradient">Scale with AI</span></h1>
+            <p class="hero-subtitle">
+                The world's first AI-powered cloud platform for developers. 
+                Deploy intelligent applications in seconds, not hours.
+            </p>
+            
+            <div class="login-section">
+                <h2>Access Your AI Workspace</h2>
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="input-group">
+                        <input type="email" placeholder="developer@company.com" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="login-btn">
+                        Sign In to AI Dashboard
+                    </button>
+                </form>
+                <div id="message" class="message"></div>
+            </div>
 
-                <!-- نموذج التسجيل -->
-                <div class="login-card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-lock"></i> Sign In to Dashboard</h3>
-                        <p>Access your developer workspace</p>
-                    </div>
-                    
-                    <form id="loginForm" class="login-form">
-                        <div class="input-group">
-                            <div class="input-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <input type="email" id="email" placeholder="developer@company.com" required>
-                        </div>
-                        
-                        <div class="input-group">
-                            <div class="input-icon">
-                                <i class="fas fa-key"></i>
-                            </div>
-                            <input type="password" id="password" placeholder="Enter your password" required>
-                            <button type="button" class="password-toggle">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                        
-                        <div class="form-options">
-                            <label class="checkbox">
-                                <input type="checkbox" id="remember">
-                                <span class="checkmark"></span>
-                                Remember me
-                            </label>
-                            <a href="#" class="forgot-password">Forgot password?</a>
-                        </div>
-                        
-                        <button type="submit" class="btn-primary">
-                            <i class="fas fa-sign-in-alt"></i>
-                            Sign In to Dashboard
-                        </button>
-                    </form>
-                    
-                    <div class="card-footer">
-                        <p>New to Nikst Cloud? <a href="#" class="signup-link">Create an account</a></p>
-                    </div>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered Deployments</h3>
+                    <p>Smart deployments with predictive scaling</p>
                 </div>
-
-                <!-- الإحصائيات -->
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-number">10K+</div>
-                        <div class="stat-label">Active Developers</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">99.9%</div>
-                        <div class="stat-label">Uptime</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">Global Regions</div>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Global Edge Network</h3>
+                    <p>200+ locations worldwide</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Sub-second deployment times</p>
                 </div>
             </div>
         </main>
-
-        <!-- الميزات السريعة -->
-        <section class="features-preview">
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h4>Instant Deployments</h4>
-                    <p>Deploy your code in seconds with our global edge network</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h4>Enterprise Security</h4>
-                    <p>SSO, 2FA, and compliance certifications included</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h4>Developer First</h4>
-                    <p>CLI, API, and all the tools developers love</p>
-                </div>
-            </div>
-        </section>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.querySelector('input[type="email"]').value;
+            const password = document.querySelector('input[type="password"]').value;
+            const messageDiv = document.getElementById('message');
+            
+            // Show loading state
+            messageDiv.textContent = '🔐 Authenticating with AI system...';
+            messageDiv.style.display = 'block';
+            messageDiv.style.background = 'rgba(0, 180, 216, 0.2)';
+            messageDiv.style.color = '#00b4d8';
+            
+            // Simulate AI authentication
+            setTimeout(() => {
+                if (email.includes('@') && password.length >= 6) {
+                    messageDiv.innerHTML = '✅ <strong>AI Authentication Successful!</strong><br>Welcome to Next Cloud AI';
+                    messageDiv.style.background = 'rgba(0, 245, 212, 0.2)';
+                    messageDiv.style.color = '#00f5d4';
+                    
+                    // Simulate redirect to AI dashboard
+                    setTimeout(() => {
+                        alert('🚀 Welcome to Next Cloud AI Dashboard!\n\nAI Features Ready:\n• Smart Deployments\n• Predictive Scaling\n• Code Optimization\n• Security Analysis');
+                    }, 1000);
+                } else {
+                    messageDiv.textContent = '❌ AI system requires valid credentials';
+                    messageDiv.style.background = 'rgba(255, 107, 107, 0.2)';
+                    messageDiv.style.color = '#ff6b6b';
+                }
+            }, 2000);
+        }
+
+        // Initialize AI system
+        console.log('🚀 Next Cloud AI Platform Initialized');
+        console.log('🤖 AI Features: Active');
+        console.log('🌍 Global Network: Online');
+    </script>
 </body>
 </html>
