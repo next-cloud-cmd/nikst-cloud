@@ -3,306 +3,586 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Next Cloud AI - Next Generation Developer Platform</title>
+    <title>Next Cloud AI - Intelligent Cloud Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #0066ff;
+            --primary-dark: #0052cc;
+            --secondary: #00d4ff;
+            --accent: #ff6b6b;
+            --dark: #0a0a1a;
+            --darker: #050510;
+            --light: #ffffff;
+            --gray: #8a8aa3;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: white;
+            background: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
             line-height: 1.6;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+
+        /* الخلفية المتحركة */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 102, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 107, 107, 0.05) 0%, transparent 50%);
         }
-        
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--gradient);
+            opacity: 0.1;
+            filter: blur(40px);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .shape-1 { width: 300px; height: 300px; top: 10%; left: 5%; animation-delay: 0s; }
+        .shape-2 { width: 200px; height: 200px; top: 60%; right: 10%; animation-delay: 2s; }
+        .shape-3 { width: 150px; height: 150px; bottom: 20%; left: 20%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        /* التنقل */
         .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 0;
         }
-        
+
         .logo {
-            font-size: 32px;
-            font-weight: 800;
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-        
-        .ai-badge {
-            background: linear-gradient(45deg, #00b4d8, #00f5d4);
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 14px;
+            gap: 0.75rem;
+            font-size: 1.8rem;
             font-weight: 700;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            opacity: 0.9;
-            transition: opacity 0.3s;
-        }
-        
-        .nav-links a:hover {
-            opacity: 1;
-        }
-        
-        .hero {
-            text-align: center;
-            padding: 80px 20px;
-        }
-        
-        .hero h1 {
-            font-size: 60px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            line-height: 1.1;
-        }
-        
-        .ai-gradient {
-            background: linear-gradient(45deg, #00b4d8, #00f5d4, #9d4edd);
+            background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
-        
-        .hero-subtitle {
-            font-size: 24px;
-            margin-bottom: 50px;
-            opacity: 0.9;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+
+        .logo-icon {
+            font-size: 2rem;
+            animation: pulse 2s infinite;
         }
-        
-        .login-section {
-            background: rgba(255, 255, 255, 0.12);
-            padding: 50px;
-            border-radius: 20px;
-            max-width: 500px;
-            margin: 0 auto;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
         }
-        
-        .login-section h2 {
-            margin-bottom: 35px;
-            font-size: 28px;
-            font-weight: 700;
+
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
         }
-        
-        .input-group {
-            margin-bottom: 25px;
+
+        .nav-links a:hover {
+            color: var(--light);
         }
-        
-        .input-group input {
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
             width: 100%;
-            padding: 18px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            font-size: 16px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            transition: all 0.3s;
         }
-        
-        .input-group input:focus {
-            outline: none;
-            border-color: #00b4d8;
-            background: rgba(255, 255, 255, 0.15);
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
         }
-        
-        .input-group input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .login-btn {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(45deg, #00b4d8, #0077b6);
-            color: white;
+
+        .btn {
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 12px;
-            font-size: 18px;
+            border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
-        
-        .login-btn:hover {
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--light);
             transform: translateY(-2px);
         }
-        
-        .message {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            display: none;
-            font-weight: 600;
-            text-align: center;
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--light);
+            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3);
         }
-        
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 102, 255, 0.4);
+        }
+
+        /* القسم الرئيسي */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            animation: slideInUp 1s ease;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--light) 30%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: slideInUp 1s ease 0.2s both;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            animation: slideInUp 1s ease 0.4s both;
+        }
+
+        /* بطاقة التسجيل */
+        .login-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 450px;
+            margin: 0 auto 4rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            animation: slideInUp 1s ease 0.6s both;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .login-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-header p {
+            color: var(--gray);
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            z-index: 2;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+        }
+
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* الميزات */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 70px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
         }
-        
+
         .feature-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
+            background: var(--glass);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s;
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
-        
+
         .feature-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
-        
+
         .feature-icon {
-            font-size: 40px;
-            margin-bottom: 20px;
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
         }
-        
+
         .feature-card h3 {
-            margin-bottom: 15px;
-            font-size: 20px;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
         }
-        
+
+        .feature-card p {
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 40px;
+            .hero-title {
+                font-size: 2.5rem;
             }
             
             .navbar {
                 flex-direction: column;
-                gap: 20px;
+                gap: 1rem;
+                padding: 1rem;
             }
             
             .nav-links {
-                gap: 20px;
+                gap: 1rem;
+            }
+            
+            .login-card {
+                padding: 2rem;
+                margin: 0 1rem 3rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <nav class="navbar">
-            <div class="logo">
-                Next Cloud <span class="ai-badge">AI</span>
-            </div>
-            <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#docs">Documentation</a>
-                <a href="#community">Community</a>
-            </div>
-        </nav>
-
-        <main class="hero">
-            <h1>Build, Deploy, <span class="ai-gradient">Scale with AI</span></h1>
-            <p class="hero-subtitle">
-                The world's first AI-powered cloud platform for developers. 
-                Deploy intelligent applications in seconds, not hours.
-            </p>
-            
-            <div class="login-section">
-                <h2>Access Your AI Workspace</h2>
-                <form id="loginForm">
-                    <div class="input-group">
-                        <input type="email" placeholder="developer@company.com" required>
-                    </div>
-                    <div class="input-group">
-                        <input type="password" placeholder="Enter your password" required>
-                    </div>
-                    <button type="submit" class="login-btn">
-                        Sign In to AI Dashboard
-                    </button>
-                </form>
-                <div id="message" class="message"></div>
-            </div>
-
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">🤖</div>
-                    <h3>AI-Powered Deployments</h3>
-                    <p>Smart deployments with predictive scaling</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌍</div>
-                    <h3>Global Edge Network</h3>
-                    <p>200+ locations worldwide</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Lightning Fast</h3>
-                    <p>Sub-second deployment times</p>
-                </div>
-            </div>
-        </main>
+    <!-- الخلفية المتحركة -->
+    <div class="background-animation"></div>
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
     </div>
 
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-cloud logo-icon"></i>
+            Next Cloud AI
+        </div>
+        
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#solutions">Solutions</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#docs">Documentation</a>
+            <a href="#enterprise">Enterprise</a>
+        </div>
+        
+        <div class="nav-actions">
+            <a href="#" class="btn btn-outline">Sign Up</a>
+            <a href="#" class="btn btn-primary">Contact Sales</a>
+        </div>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-rocket"></i>
+                <span>WORLD'S FIRST AI-POWERED CLOUD PLATFORM</span>
+            </div>
             
-            const email = document.querySelector('input[type="email"]').value;
-            const password = document.querySelector('input[type="password"]').value;
-            const messageDiv = document.getElementById('message');
+            <h1 class="hero-title">
+                Intelligent Cloud
+                <br>
+                <span style="background: linear-gradient(135deg, var(--secondary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    Powered by AI
+                </span>
+            </h1>
             
-            // Show loading state
-            messageDiv.textContent = '🔐 Authenticating with AI system...';
-            messageDiv.style.display = 'block';
-            messageDiv.style.background = 'rgba(0, 180, 216, 0.2)';
-            messageDiv.style.color = '#00b4d8';
-            
-            // Simulate AI authentication
-            setTimeout(() => {
-                if (email.includes('@') && password.length >= 3) {
-                    messageDiv.innerHTML = '✅ <strong>AI Authentication Successful!</strong><br>Redirecting to Dashboard...';
-                    messageDiv.style.background = 'rgba(0, 245, 212, 0.2)';
-                    messageDiv.style.color = '#00f5d4';
+            <p class="hero-subtitle">
+                Deploy, scale, and optimize your applications with artificial intelligence. 
+                Experience the future of cloud computing today.
+            </p>
+
+            <!-- بطاقة التسجيل -->
+            <div class="login-card">
+                <div class="login-header">
+                    <h2>Access AI Dashboard</h2>
+                    <p>Sign in to your intelligent workspace</p>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="input-group">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" placeholder="Enter your email" required>
+                    </div>
                     
-                    // Redirect to dashboard after 2 seconds
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="login-options">
+                        <label class="remember-me">
+                            <input type="checkbox">
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In to Dashboard
+                    </button>
+                </form>
+            </div>
+
+            <!-- الميزات -->
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI Optimization</h3>
+                    <p>Automatic performance tuning and resource allocation powered by machine learning</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Lightning Fast</h3>
+                    <p>Global edge network with sub-second deployment times across 200+ locations</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Enterprise Security</h3>
+                    <p>Military-grade encryption and AI-powered threat detection</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // تأثيرات الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            // تأثيرات الظهور
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // تطبيق تأثيرات الظهور على العناصر
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+
+            // تسجيل الدخول
+            document.getElementById('loginForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const button = this.querySelector('button');
+                const originalText = button.innerHTML;
+                
+                // تأثير التحميل
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+                button.disabled = true;
+                
+                // محاكاة المصادقة
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-check"></i> Access Granted!';
+                    button.style.background = 'linear-gradient(135deg, #00d4ff, #00b894)';
+                    
+                    // الانتقال للوحة التحكم
                     setTimeout(() => {
                         window.location.href = 'dashboard.html';
-                    }, 2000);
-                } else {
-                    messageDiv.textContent = '❌ AI system requires valid credentials';
-                    messageDiv.style.background = 'rgba(255, 107, 107, 0.2)';
-                    messageDiv.style.color = '#ff6b6b';
-                }
-            }, 2000);
+                    }, 1000);
+                }, 2000);
+            });
+
+            // تأثيرات إضافية
+            const shapes = document.querySelectorAll('.shape');
+            shapes.forEach((shape, index) => {
+                shape.style.animationDelay = `${index * 2}s`;
+            });
+
+            console.log('🚀 Next Cloud AI - Intelligent Platform Loaded');
         });
 
-        // Initialize AI system
-        console.log('🚀 Next Cloud AI Platform Initialized');
-        console.log('🤖 AI Features: Active');
-        console.log('🌍 Global Network: Online');
+        // تأثيرات الماوس
+        document.addEventListener('mousemove', function(e) {
+            const shapes = document.querySelectorAll('.shape');
+            shapes.forEach(shape => {
+                const speed = shape.getAttribute('data-speed') || 5;
+                const x = (window.innerWidth - e.pageX * speed) / 100;
+                const y = (window.innerHeight - e.pageY * speed) / 100;
+                shape.style.transform = `translateX(${x}px) translateY(${y}px)`;
+            });
+        });
     </script>
 </body>
 </html>
