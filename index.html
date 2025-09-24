@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Next Cloud AI - Intelligent Cloud Platform</title>
+    <title>Next Cloud AI - Intelligent Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -11,8 +11,11 @@
             --primary-dark: #0052cc;
             --secondary: #00d4ff;
             --accent: #ff6b6b;
+            --success: #00b894;
+            --warning: #fdcb6e;
             --dark: #0a0a1a;
             --darker: #050510;
+            --sidebar: #0f0f23;
             --light: #ffffff;
             --gray: #8a8aa3;
             --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -30,121 +33,278 @@
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: var(--darker);
             color: var(--light);
-            overflow-x: hidden;
-            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
         }
 
-        /* الخلفية المتحركة */
-        .background-animation {
+        /* الشريط الجانبي */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--glass-border);
+            padding: 2rem 1.5rem;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(0, 102, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(255, 107, 107, 0.05) 0%, transparent 50%);
+            height: 100vh;
+            overflow-y: auto;
         }
 
-        .floating-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            background: var(--gradient);
-            opacity: 0.1;
-            filter: blur(40px);
-            animation: float 8s ease-in-out infinite;
-        }
-
-        .shape-1 { width: 300px; height: 300px; top: 10%; left: 5%; animation-delay: 0s; }
-        .shape-2 { width: 200px; height: 200px; top: 60%; right: 10%; animation-delay: 2s; }
-        .shape-3 { width: 150px; height: 150px; bottom: 20%; left: 20%; animation-delay: 4s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(180deg); }
-        }
-
-        /* التنقل */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 2rem;
-            background: rgba(10, 10, 26, 0.8);
-            backdrop-filter: blur(20px);
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
             border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.8rem;
+        .sidebar-logo {
+            font-size: 1.5rem;
             font-weight: 700;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .logo-icon {
-            font-size: 2rem;
-            animation: pulse 2s infinite;
+        .sidebar-nav {
+            list-style: none;
         }
 
-        .nav-links {
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
             display: flex;
-            gap: 2rem;
             align-items: center;
-        }
-
-        .nav-links a {
+            gap: 1rem;
+            padding: 1rem 1.5rem;
             color: var(--gray);
             text-decoration: none;
-            font-weight: 500;
+            border-radius: 12px;
             transition: all 0.3s ease;
             position: relative;
         }
 
-        .nav-links a:hover {
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--glass);
             color: var(--light);
+            transform: translateX(5px);
         }
 
-        .nav-links a::after {
+        .nav-link.active::before {
             content: '';
             position: absolute;
-            bottom: -5px;
             left: 0;
-            width: 0;
-            height: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 60%;
             background: var(--gradient);
-            transition: width 0.3s ease;
+            border-radius: 2px;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        .nav-badge {
+            background: var(--gradient);
+            color: var(--light);
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: auto;
         }
 
-        .nav-actions {
+        /* المحتوى الرئيسي */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+            background: var(--darker);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .header-title h1 {
+            font-size: 2.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-actions {
             display: flex;
             gap: 1rem;
             align-items: center;
         }
 
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            color: var(--light);
+            width: 300px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        /* الشبكة الرئيسية */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-trend {
+            font-size: 0.9rem;
+            color: var(--success);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* المشاريع */
+        .projects-section {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .project-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-running {
+            background: rgba(0, 184, 148, 0.2);
+            color: var(--success);
+        }
+
+        .project-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* الأزرار */
         .btn {
             padding: 0.75rem 1.5rem;
             border: none;
@@ -153,435 +313,273 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: var(--light);
-            transform: translateY(-2px);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .btn-primary {
             background: var(--gradient);
             color: var(--light);
-            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(0, 102, 255, 0.4);
-        }
-
-        /* القسم الرئيسي */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 2rem;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
-            animation: slideInUp 1s ease;
-        }
-
-        .hero-title {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--light) 30%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: slideInUp 1s ease 0.2s both;
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            color: var(--gray);
-            margin-bottom: 3rem;
-            animation: slideInUp 1s ease 0.4s both;
-        }
-
-        /* بطاقة التسجيل */
-        .login-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 3rem;
-            max-width: 450px;
-            margin: 0 auto 4rem;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-            animation: slideInUp 1s ease 0.6s both;
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .login-header h2 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .login-header p {
-            color: var(--gray);
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 1.5rem;
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-            z-index: 2;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            color: var(--light);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
-        }
-
-        .login-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-        }
-
-        .forgot-password {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        /* الميزات */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .feature-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            animation: bounce 2s infinite;
-        }
-
-        .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card p {
-            color: var(--gray);
-            line-height: 1.5;
-        }
-
-        /* Animations */
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            box-shadow: 0 10px 20px rgba(0, 102, 255, 0.3);
         }
 
         /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 250px;
+            }
+            
+            .main-content {
+                margin-left: 250px;
+            }
+        }
+
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
             }
             
-            .navbar {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
+            .main-content {
+                margin-left: 0;
             }
             
-            .nav-links {
-                gap: 1rem;
-            }
-            
-            .login-card {
-                padding: 2rem;
-                margin: 0 1rem 3rem;
+            .sidebar.active {
+                transform: translateX(0);
             }
         }
     </style>
 </head>
 <body>
-    <!-- الخلفية المتحركة -->
-    <div class="background-animation"></div>
-    <div class="floating-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-    </div>
+    <!-- الشريط الجانبي -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="fas fa-cloud"></i>
+                Next Cloud AI
+            </div>
+        </div>
 
-    <!-- شريط التنقل -->
-    <nav class="navbar">
-        <div class="logo">
-            <i class="fas fa-cloud logo-icon"></i>
-            Next Cloud AI
-        </div>
-        
-        <div class="nav-links">
-            <a href="#features">Features</a>
-            <a href="#solutions">Solutions</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#docs">Documentation</a>
-            <a href="#enterprise">Enterprise</a>
-        </div>
-        
-        <div class="nav-actions">
-            <a href="#" class="btn btn-outline">Sign Up</a>
-            <a href="#" class="btn btn-primary">Contact Sales</a>
-        </div>
-    </nav>
+        <ul class="sidebar-nav">
+            <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    Dashboard
+                    <span class="nav-badge">AI</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-rocket"></i>
+                    Deployments
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-brain"></i>
+                    AI Models
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-database"></i>
+                    Databases
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    Analytics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-shield-alt"></i>
+                    Security
+                </a>
+            </li>
+        </ul>
+    </aside>
 
     <!-- المحتوى الرئيسي -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-rocket"></i>
-                <span>WORLD'S FIRST AI-POWERED CLOUD PLATFORM</span>
+    <main class="main-content">
+        <header class="header">
+            <div class="header-title">
+                <h1>AI Dashboard</h1>
+                <p>Welcome back! Here's what's happening with your AI projects.</p>
             </div>
             
-            <h1 class="hero-title">
-                Intelligent Cloud
-                <br>
-                <span style="background: linear-gradient(135deg, var(--secondary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                    Powered by AI
-                </span>
-            </h1>
-            
-            <p class="hero-subtitle">
-                Deploy, scale, and optimize your applications with artificial intelligence. 
-                Experience the future of cloud computing today.
-            </p>
-
-            <!-- بطاقة التسجيل -->
-            <div class="login-card">
-                <div class="login-header">
-                    <h2>Access AI Dashboard</h2>
-                    <p>Sign in to your intelligent workspace</p>
+            <div class="header-actions">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search AI models...">
                 </div>
-                
-                <form id="loginForm">
-                    <div class="input-group">
-                        <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" placeholder="Enter your email" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <i class="fas fa-lock input-icon"></i>
-                        <input type="password" placeholder="Enter your password" required>
-                    </div>
-                    
-                    <div class="login-options">
-                        <label class="remember-me">
-                            <input type="checkbox">
-                            Remember me
-                        </label>
-                        <a href="#" class="forgot-password">Forgot password?</a>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Sign In to Dashboard
-                    </button>
-                </form>
+                <button class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    New Project
+                </button>
             </div>
+        </header>
 
-            <!-- الميزات -->
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">
+        <!-- الإحصائيات -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">
                         <i class="fas fa-brain"></i>
                     </div>
-                    <h3>AI Optimization</h3>
-                    <p>Automatic performance tuning and resource allocation powered by machine learning</p>
+                    <span class="stat-trend">+12%</span>
                 </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
+                <div class="stat-value">98.7%</div>
+                <div class="stat-label">AI Model Accuracy</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <h3>Lightning Fast</h3>
-                    <p>Global edge network with sub-second deployment times across 200+ locations</p>
+                    <span class="stat-trend">+5%</span>
                 </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                <div class="stat-value">1.2s</div>
+                <div class="stat-label">Avg Response Time</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-server"></i>
                     </div>
-                    <h3>Enterprise Security</h3>
-                    <p>Military-grade encryption and AI-powered threat detection</p>
+                    <span class="stat-trend">+8%</span>
                 </div>
+                <div class="stat-value">247</div>
+                <div class="stat-label">Active Deployments</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <span class="stat-trend">+15%</span>
+                </div>
+                <div class="stat-value">12.5K</div>
+                <div class="stat-label">API Requests</div>
             </div>
         </div>
-    </section>
+
+        <!-- المشاريع -->
+        <section class="projects-section">
+            <div class="section-header">
+                <h2>AI Projects</h2>
+                <button class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    Create AI Model
+                </button>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <span class="project-status status-running">🟢 Running</span>
+                    </div>
+                    <h3>Smart Chatbot</h3>
+                    <p>Advanced NLP chatbot for customer support with sentiment analysis</p>
+                    <div class="project-stats">
+                        <span><i class="fas fa-chart-line"></i> 95% Accuracy</span>
+                        <span><i class="fas fa-clock"></i> 24/7 Active</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <span class="project-status status-running">🟢 Running</span>
+                    </div>
+                    <h3>Image Recognition</h3>
+                    <p>Computer vision system for real-time object detection and classification</p>
+                    <div class="project-stats">
+                        <span><i class="fas fa-chart-line"></i> 98% Accuracy</span>
+                        <span><i class="fas fa-clock"></i> 24/7 Active</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <span class="project-status status-running">🟢 Running</span>
+                    </div>
+                    <h3>Predictive Analytics</h3>
+                    <p>Machine learning models for business intelligence and forecasting</p>
+                    <div class="project-stats">
+                        <span><i class="fas fa-chart-line"></i> 92% Accuracy</span>
+                        <span><i class="fas fa-clock"></i> 24/7 Active</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <script>
-        // تأثيرات الصفحة
+        // تأثيرات لوحة التحكم
         document.addEventListener('DOMContentLoaded', function() {
-            // تأثيرات الظهور
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-
-            // تطبيق تأثيرات الظهور على العناصر
-            document.querySelectorAll('.feature-card').forEach(card => {
+            // تأثيرات الإحصائيات
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.2}s`;
                 card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'all 0.6s ease';
-                observer.observe(card);
-            });
-
-            // تسجيل الدخول
-            document.getElementById('loginForm').addEventListener('submit', function(event) {
-                event.preventDefault();
+                card.style.transform = 'translateY(20px)';
                 
-                const button = this.querySelector('button');
-                const originalText = button.innerHTML;
-                
-                // تأثير التحميل
-                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
-                button.disabled = true;
-                
-                // محاكاة المصادقة
                 setTimeout(() => {
-                    button.innerHTML = '<i class="fas fa-check"></i> Access Granted!';
-                    button.style.background = 'linear-gradient(135deg, #00d4ff, #00b894)';
-                    
-                    // الانتقال للوحة التحكم
-                    setTimeout(() => {
-                        window.location.href = 'dashboard.html';
-                    }, 1000);
-                }, 2000);
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                    card.style.transition = 'all 0.6s ease';
+                }, index * 200);
             });
 
-            // تأثيرات إضافية
-            const shapes = document.querySelectorAll('.shape');
-            shapes.forEach((shape, index) => {
-                shape.style.animationDelay = `${index * 2}s`;
+            // تأثيرات المشاريع
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.opacity = '0';
+                card.style.transform = 'translateX(20px)';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateX(0)';
+                    card.style.transition = 'all 0.4s ease';
+                }, 600 + index * 100);
             });
 
-            console.log('🚀 Next Cloud AI - Intelligent Platform Loaded');
-        });
+            // محاكاة بيانات حية
+            setInterval(() => {
+                const stats = document.querySelectorAll('.stat-value');
+                if (stats[3]) {
+                    const current = parseInt(stats[3].textContent.replace('K', ''));
+                    const randomIncrement = Math.floor(Math.random() * 10) + 1;
+                    stats[3].textContent = (current + randomIncrement) + 'K';
+                }
+            }, 3000);
 
-        // تأثيرات الماوس
-        document.addEventListener('mousemove', function(e) {
-            const shapes = document.querySelectorAll('.shape');
-            shapes.forEach(shape => {
-                const speed = shape.getAttribute('data-speed') || 5;
-                const x = (window.innerWidth - e.pageX * speed) / 100;
-                const y = (window.innerHeight - e.pageY * speed) / 100;
-                shape.style.transform = `translateX(${x}px) translateY(${y}px)`;
-            });
+            console.log('🤖 Next Cloud AI Dashboard - Intelligent Systems Active');
         });
     </script>
 </body>
