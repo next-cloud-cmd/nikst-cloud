@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Next Cloud AI - Intelligent Dashboard</title>
+    <title>Next Cloud AI - لوحة التحكم الذكية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -27,25 +27,29 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: var(--darker);
             color: var(--light);
             display: flex;
             min-height: 100vh;
+            direction: rtl;
         }
 
         /* الشريط الجانبي */
         .sidebar {
             width: 280px;
             background: var(--sidebar);
-            border-right: 1px solid var(--glass-border);
+            border-left: 1px solid var(--glass-border);
             padding: 2rem 1.5rem;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
+            right: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
         }
 
         .sidebar-header {
@@ -89,13 +93,13 @@
         .nav-link.active {
             background: var(--glass);
             color: var(--light);
-            transform: translateX(5px);
+            transform: translateX(-5px);
         }
 
         .nav-link.active::before {
             content: '';
             position: absolute;
-            left: 0;
+            right: 0;
             top: 50%;
             transform: translateY(-50%);
             width: 4px;
@@ -110,15 +114,16 @@
             padding: 0.25rem 0.5rem;
             border-radius: 20px;
             font-size: 0.8rem;
-            margin-left: auto;
+            margin-right: auto;
         }
 
         /* المحتوى الرئيسي */
         .main-content {
             flex: 1;
-            margin-left: 280px;
+            margin-right: 280px;
             padding: 2rem;
             background: var(--darker);
+            transition: all 0.3s ease;
         }
 
         .header {
@@ -152,14 +157,14 @@
             background: var(--glass);
             border: 1px solid var(--glass-border);
             border-radius: 50px;
-            padding: 0.75rem 1rem 0.75rem 3rem;
+            padding: 0.75rem 3rem 0.75rem 1rem;
             color: var(--light);
             width: 300px;
         }
 
         .search-box i {
             position: absolute;
-            left: 1rem;
+            right: 1rem;
             top: 50%;
             transform: translateY(-50%);
             color: var(--gray);
@@ -328,6 +333,24 @@
             box-shadow: 0 10px 20px rgba(0, 102, 255, 0.3);
         }
 
+        /* زر القائمة المتنقلة */
+        .menu-toggle {
+            display: none;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1001;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .sidebar {
@@ -335,29 +358,72 @@
             }
             
             .main-content {
-                margin-left: 250px;
+                margin-right: 250px;
             }
         }
 
         @media (max-width: 768px) {
             .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
-            
-            .main-content {
-                margin-left: 0;
+                transform: translateX(100%);
             }
             
             .sidebar.active {
                 transform: translateX(0);
             }
+            
+            .main-content {
+                margin-right: 0;
+                padding: 1rem;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .search-box input {
+                width: 200px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .search-box input {
+                width: 100%;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- زر القائمة المتنقلة -->
+    <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
     <!-- الشريط الجانبي -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div class="sidebar-logo">
                 <i class="fas fa-cloud"></i>
@@ -369,65 +435,65 @@
             <li class="nav-item">
                 <a href="#" class="nav-link active">
                     <i class="fas fa-home"></i>
-                    Dashboard
+                    لوحة التحكم
                     <span class="nav-badge">AI</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="fas fa-rocket"></i>
-                    Deployments
+                    النشرات
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="fas fa-brain"></i>
-                    AI Models
+                    نماذج الذكاء الاصطناعي
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="fas fa-database"></i>
-                    Databases
+                    قواعد البيانات
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="fas fa-chart-bar"></i>
-                    Analytics
+                    التحليلات
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="fas fa-cog"></i>
-                    Settings
+                    الإعدادات
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="fas fa-shield-alt"></i>
-                    Security
+                    الأمان
                 </a>
             </li>
         </ul>
     </aside>
 
     <!-- المحتوى الرئيسي -->
-    <main class="main-content">
+    <main class="main-content" id="mainContent">
         <header class="header">
             <div class="header-title">
-                <h1>AI Dashboard</h1>
-                <p>Welcome back! Here's what's happening with your AI projects.</p>
+                <h1>لوحة تحكم الذكاء الاصطناعي</h1>
+                <p>مرحبًا بعودتك! إليك ما يحدث في مشاريع الذكاء الاصطناعي الخاصة بك.</p>
             </div>
             
             <div class="header-actions">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search AI models...">
+                    <input type="text" placeholder="ابحث في نماذج الذكاء الاصطناعي...">
                 </div>
                 <button class="btn btn-primary">
                     <i class="fas fa-plus"></i>
-                    New Project
+                    مشروع جديد
                 </button>
             </div>
         </header>
@@ -442,7 +508,7 @@
                     <span class="stat-trend">+12%</span>
                 </div>
                 <div class="stat-value">98.7%</div>
-                <div class="stat-label">AI Model Accuracy</div>
+                <div class="stat-label">دقة نموذج الذكاء الاصطناعي</div>
             </div>
             
             <div class="stat-card">
@@ -453,7 +519,7 @@
                     <span class="stat-trend">+5%</span>
                 </div>
                 <div class="stat-value">1.2s</div>
-                <div class="stat-label">Avg Response Time</div>
+                <div class="stat-label">متوسط وقت الاستجابة</div>
             </div>
             
             <div class="stat-card">
@@ -464,7 +530,7 @@
                     <span class="stat-trend">+8%</span>
                 </div>
                 <div class="stat-value">247</div>
-                <div class="stat-label">Active Deployments</div>
+                <div class="stat-label">النشرات النشطة</div>
             </div>
             
             <div class="stat-card">
@@ -475,17 +541,17 @@
                     <span class="stat-trend">+15%</span>
                 </div>
                 <div class="stat-value">12.5K</div>
-                <div class="stat-label">API Requests</div>
+                <div class="stat-label">طلبات API</div>
             </div>
         </div>
 
         <!-- المشاريع -->
         <section class="projects-section">
             <div class="section-header">
-                <h2>AI Projects</h2>
+                <h2>مشاريع الذكاء الاصطناعي</h2>
                 <button class="btn btn-primary">
                     <i class="fas fa-plus"></i>
-                    Create AI Model
+                    إنشاء نموذج ذكاء اصطناعي
                 </button>
             </div>
             
@@ -495,13 +561,13 @@
                         <div class="project-icon">
                             <i class="fas fa-robot"></i>
                         </div>
-                        <span class="project-status status-running">🟢 Running</span>
+                        <span class="project-status status-running">🟢 نشط</span>
                     </div>
-                    <h3>Smart Chatbot</h3>
-                    <p>Advanced NLP chatbot for customer support with sentiment analysis</p>
+                    <h3>روبوت محادثة ذكي</h3>
+                    <p>روبوت محادثة متقدم للدعم العملاء مع تحليل المشاعر</p>
                     <div class="project-stats">
-                        <span><i class="fas fa-chart-line"></i> 95% Accuracy</span>
-                        <span><i class="fas fa-clock"></i> 24/7 Active</span>
+                        <span><i class="fas fa-chart-line"></i> 95% دقة</span>
+                        <span><i class="fas fa-clock"></i> نشط 24/7</span>
                     </div>
                 </div>
                 
@@ -510,13 +576,13 @@
                         <div class="project-icon">
                             <i class="fas fa-eye"></i>
                         </div>
-                        <span class="project-status status-running">🟢 Running</span>
+                        <span class="project-status status-running">🟢 نشط</span>
                     </div>
-                    <h3>Image Recognition</h3>
-                    <p>Computer vision system for real-time object detection and classification</p>
+                    <h3>التعرف على الصور</h3>
+                    <p>نظام رؤية حاسوبية للكشف عن الكائنات وتصنيفها في الوقت الفعلي</p>
                     <div class="project-stats">
-                        <span><i class="fas fa-chart-line"></i> 98% Accuracy</span>
-                        <span><i class="fas fa-clock"></i> 24/7 Active</span>
+                        <span><i class="fas fa-chart-line"></i> 98% دقة</span>
+                        <span><i class="fas fa-clock"></i> نشط 24/7</span>
                     </div>
                 </div>
                 
@@ -525,13 +591,13 @@
                         <div class="project-icon">
                             <i class="fas fa-chart-bar"></i>
                         </div>
-                        <span class="project-status status-running">🟢 Running</span>
+                        <span class="project-status status-running">🟢 نشط</span>
                     </div>
-                    <h3>Predictive Analytics</h3>
-                    <p>Machine learning models for business intelligence and forecasting</p>
+                    <h3>التحليلات التنبؤية</h3>
+                    <p>نماذج تعلم آلي لذكاء الأعمال والتنبؤ</p>
                     <div class="project-stats">
-                        <span><i class="fas fa-chart-line"></i> 92% Accuracy</span>
-                        <span><i class="fas fa-clock"></i> 24/7 Active</span>
+                        <span><i class="fas fa-chart-line"></i> 92% دقة</span>
+                        <span><i class="fas fa-clock"></i> نشط 24/7</span>
                     </div>
                 </div>
             </div>
@@ -541,6 +607,27 @@
     <script>
         // تأثيرات لوحة التحكم
         document.addEventListener('DOMContentLoaded', function() {
+            // التحكم في القائمة المتنقلة
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+            });
+            
+            // إغلاق القائمة عند النقر خارجها
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth <= 768) {
+                    const isClickInsideSidebar = sidebar.contains(event.target);
+                    const isClickInsideMenuToggle = menuToggle.contains(event.target);
+                    
+                    if (!isClickInsideSidebar && !isClickInsideMenuToggle && sidebar.classList.contains('active')) {
+                        sidebar.classList.remove('active');
+                    }
+                }
+            });
+            
             // تأثيرات الإحصائيات
             const statCards = document.querySelectorAll('.stat-card');
             statCards.forEach((card, index) => {
@@ -560,7 +647,7 @@
             projectCards.forEach((card, index) => {
                 card.style.animationDelay = `${index * 0.1}s`;
                 card.style.opacity = '0';
-                card.style.transform = 'translateX(20px)';
+                card.style.transform = 'translateX(-20px)';
                 
                 setTimeout(() => {
                     card.style.opacity = '1';
