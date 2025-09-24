@@ -560,4 +560,27 @@
             projectCards.forEach((card, index) => {
                 card.style.animationDelay = `${index * 0.1}s`;
                 card.style.opacity = '0';
-                card.style.transform = 'translateX(20px)
+                card.style.transform = 'translateX(20px)';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateX(0)';
+                    card.style.transition = 'all 0.4s ease';
+                }, 600 + index * 100);
+            });
+
+            // محاكاة بيانات حية
+            setInterval(() => {
+                const stats = document.querySelectorAll('.stat-value');
+                if (stats[3]) {
+                    const current = parseInt(stats[3].textContent.replace('K', ''));
+                    const randomIncrement = Math.floor(Math.random() * 10) + 1;
+                    stats[3].textContent = (current + randomIncrement) + 'K';
+                }
+            }, 3000);
+
+            console.log('🤖 Next Cloud AI Dashboard - Intelligent Systems Active');
+        });
+    </script>
+</body>
+</html>
